@@ -1,4 +1,26 @@
 class UsersController < ApplicationController
   def new
+    @user = User.new
   end
+
+  def create
+    @user = User.new user_params
+    if @user.save
+      flash[:success]="新用户新建成功"
+      redirect_to @user
+    else
+      flash[:danger]= "新建用户失败"
+      render :new
+    end
+  end
+
+  def show
+    @user = User.find(params[:id])
+  end
+
+
+  private
+    def user_params
+      params.expect(user: %w[name email password password_confirmation])
+    end
 end
