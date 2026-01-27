@@ -56,15 +56,43 @@
       </a>
     </div>
     <ul class="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0">
-      <li><a href="/" class="nav-link px-2 link-secondary">Home</a></li>
-      <li><a href="/about" class="nav-link px-2">About</a></li>
-      <li><a href="/help" class="nav-link px-2">Help</a></li>
+      <li><a
+          href="/"
+          class="nav-link px-2 <%= current_page?(root_path) ? 'link-secondary' : ''%>"
+        >首页</a></li>
+      <li><a
+          href="/about"
+          class="nav-link px-2 <%= current_page?(about_path) ? 'link-secondary' : ''%>"
+        >关于</a></li>
+      <li><a
+          href="/help"
+          class="nav-link px-2 <%= current_page?(help_path) ? 'link-secondary' : ''%>"
+        >帮助</a></li>
     </ul>
     <div class="col-md-3 text-end">
-      <button type="button" class="btn btn-outline-primary me-2">
-        Login
-      </button>
-      <button type="button" class="btn btn-primary">Sign-up</button>
+      <% if logged_in? %>
+        <div class="d-flex align-items-center h-100 justify-content-end">
+          <div data-bs-toggle="dropdown">
+            <span>
+              <%= @current_user.name %>
+            </span>
+            <span class="navbar-toggler-icon"></span>
+
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item" href="#">Action</a></li>
+              <li><a class="dropdown-item" href="#">Another action</a></li>
+            </ul>
+          </div>
+          <%= button_to "退出", logout_path, method: "delete", class: "dropdown-item" %>
+        </div>
+      <% else %>
+        <%= link_to sessions_new_path, class:"text-decoration-none" do %>
+          <button type="button" class="btn btn-outline-primary me-2">登录</button>
+        <% end %>
+        <%= link_to new_user_path  do %>
+          <button type="button" class="btn btn-primary">注册</button>
+        <% end %>
+      <% end %>
     </div>
   </div>
 </header>

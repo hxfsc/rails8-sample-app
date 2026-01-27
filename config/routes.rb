@@ -1,4 +1,9 @@
 Rails.application.routes.draw do
+  get "sessions/new"
+  post "sessions/new"=>"sessions#create"
+  delete "logout"=>"sessions#destroy"
+
+
   get "/home", to: "static_pages#home"
   get "/help", to: "static_pages#help"
   get "/about", to: "static_pages#about"

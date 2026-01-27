@@ -39,3 +39,16 @@
     <div><%= message %></div>
   </div>
 <% end %>
+
+<% if flash[:success] %>
+  <div class="alert alert-success alert-dismissible fade show" role="alert">
+    <strong>你好!</strong>
+    <%= flash[:success] %>
+    <button
+      type="button"
+      class="btn-close"
+      data-bs-dismiss="alert"
+      aria-label="Close"
+    ></button>
+  </div>
+<% end %>
