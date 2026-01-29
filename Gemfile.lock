@@ -105,6 +105,8 @@ GEM
     erubi (1.13.1)
     et-orbi (1.4.0)
       tzinfo
+    faker (3.4.1)
+      i18n (>= 1.8.11, < 2)
     ffi (1.17.3-x86_64-darwin)
     fugit (1.12.1)
       et-orbi (~> 1.4)
@@ -177,6 +179,9 @@ GEM
     nokogiri (1.19.0-x86_64-darwin)
       racc (~> 1.4)
     ostruct (0.6.3)
+    pagy (43.2.8)
+      json
+      yaml
     parallel (1.27.0)
     parser (3.3.10.0)
       ast (~> 2.4.1)
@@ -326,6 +331,7 @@ GEM
       base64
       websocket-extensions (>= 0.1.0)
     websocket-extensions (0.1.5)
+    yaml (0.4.0)
     zeitwerk (2.7.4)
 
 PLATFORMS
@@ -338,10 +344,12 @@ DEPENDENCIES
   bundler-audit
   cssbundling-rails
   debug
+  faker
   image_processing (~> 1.2)
   importmap-rails
   jbuilder
   kamal
+  pagy
   propshaft
   puma (>= 5.0)
   rails (~> 8.1.2)

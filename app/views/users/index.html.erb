@@ -1,8 +1,22 @@
 <div class="container">
 
   <% @users.each do |user| %>
-    <div class="mb-2">
-      <%= user.name %>
+    <div class=" mb-2 pb-2 d-flex align-items-center gap-2 border-bottom ">
+      <%= gravatar_for user %>
+
+      <%= link_to user.name, user_path(user) %>
+
+      <% if current_user && current_user.admin? && !current_user?(user) %>
+        |
+        <%= button_to "删除",
+        user,
+        method: :delete,
+        class:
+          "link-danger link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover btn btn-link" %>
+      <% end %>
     </div>
   <% end %>
+
+  <%== @pagy.series_nav(:bootstrap) %>
+
 </div>

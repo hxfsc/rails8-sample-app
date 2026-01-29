@@ -86,7 +86,7 @@
           <%= button_to "退出", logout_path, method: "delete", class: "dropdown-item" %>
         </div>
       <% else %>
-        <%= link_to sessions_new_path, class:"text-decoration-none" do %>
+        <%= link_to login_path, class:"text-decoration-none" do %>
           <button type="button" class="btn btn-outline-primary me-2">登录</button>
         <% end %>
         <%= link_to new_user_path  do %>

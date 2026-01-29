@@ -8,6 +8,7 @@ class SessionsController < ApplicationController
     if user && user.authenticate(params[:session][:password])
       flash.now[:success]="欢迎回来， #{user.name}."
       log_in user
+      params[:session][:remember_me] =="1" ? remember(user) : forget(user)
       redirect_to user
     else
       flash.now[:danger] = "登录失败，请重新登录"
@@ -17,8 +18,8 @@ class SessionsController < ApplicationController
 
 
   def destroy
-    flash.now[:success] = "你已退出"
-    log_out
+    log_out if logged_in?
+    flash[:success] = "你已退出"
     redirect_to root_path
   end
 

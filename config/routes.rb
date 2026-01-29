@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  get "sessions/new"
+  get "login"=>"sessions#new"
   post "sessions/new"=>"sessions#create"
   delete "logout"=>"sessions#destroy"
 

@@ -1,6 +1,10 @@
 class UsersController < ApplicationController
+  before_action :logged_in_user, only: %i[edit update]
+  before_action :correct_user, only: %i[edit update]
+
+
   def index
-    @users = User.all
+    @pagy,  @users = pagy(:offset, User.all)
   end
 
 
@@ -41,9 +45,28 @@ class UsersController < ApplicationController
     end
   end
 
+  def destroy
+    User.find(params[:id]).destroy
+    flash[:success] = "用户删除成功"
+    redirect_to root_path
+  end
 
   private
     def user_params
       params.expect(user: %w[name email password password_confirmation])
+    end
+
+
+    def logged_in_user
+      unless logged_in?
+        flash[:danger]="请先登录"
+        redirect_to login_url
+      end
+    end
+
+
+    def correct_user
+      @user = User.find(params[:id])
+      redirect_to(root_path) unless @user == current_user
     end
 end
