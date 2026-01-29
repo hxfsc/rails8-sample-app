@@ -1,6 +1,17 @@
 class UsersController < ApplicationController
+  def index
+    @users = User.all
+  end
+
+
+
   def new
     @user = User.new
+  end
+
+
+  def edit
+      @user = User.find(params[:id])
   end
 
   def create
@@ -9,7 +20,7 @@ class UsersController < ApplicationController
       flash[:success]="新用户新建成功"
       redirect_to @user
     else
-      flash[:danger]= "新建用户失败"
+      flash.now[:danger]= "新建用户失败"
       render :new
     end
   end
