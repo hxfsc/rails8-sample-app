@@ -19,6 +19,18 @@ class UsersController < ApplicationController
   end
 
 
+  def update
+    @user = User.find(params[:id])
+    if @user.update(user_params)
+      flash[:success] = "更新成功"
+      redirect_to @user
+    else
+      flash.now[:danger] = "更新失败"
+      render :edit
+    end
+  end
+
+
   private
     def user_params
       params.expect(user: %w[name email password password_confirmation])

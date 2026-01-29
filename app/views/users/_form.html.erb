@@ -1,0 +1,47 @@
+<%= form_with model: user do |f| %>
+  <div class="container">
+    <div class="row g-3">
+      <div class="col-12">
+        <label for="username" class="form-label">用户名</label>
+        <div class="input-group has-validation">
+          <span class="input-group-text">@</span>
+          <%= f.text_field :name, class: "form-control", id: "username", placeholder: "用户名" %>
+          <div class="invalid-feedback">
+            Your username is required.
+          </div>
+        </div>
+      </div>
+      <div class="col-12">
+        <label for="email" class="form-label">邮箱</label>
+        <%= f.email_field :email, class: "form-control", id: "email", placeholder: "邮箱" %>
+        <div class="invalid-feedback">
+          Please enter a valid email address for shipping updates.
+        </div>
+      </div>
+      <div class="col-12">
+        <label class="form-label">密码</label>
+        <%= f.password_field :password,
+                         class: "form-control",
+                         id: "password",
+                         placeholder: "密码" %>
+        <div class="invalid-feedback">
+          Please enter your shipping address.
+        </div>
+      </div>
+
+      <div class="col-12">
+        <label class="form-label">确认密码</label>
+        <%= f.password_field :password_confirmation,
+                         class: "form-control",
+                         id: "password_confirmation",
+                         placeholder: "确认密码" %>
+        <div class="invalid-feedback">
+          Please enter your shipping address.
+        </div>
+      </div>
+      <div class="col-12">
+        <%= f.submit yield(:submit_title), class: "w-100 btn btn-primary btn-lg" %>
+      </div>
+    </div>
+  </div>
+<% end %>

@@ -1,0 +1,14 @@
+<% provide(:submit_title, "更新") %>
+
+<% if flash[:success] %>
+  <div class="alert alert-success alert-dismissible fade show" role="alert">
+    <%= flash[:success] %>
+    <button
+      type="button"
+      class="btn-close"
+      data-bs-dismiss="alert"
+      aria-label="Close"
+    ></button>
+  </div>
+<% end %>
+<%= render "form", user: @user %>
