@@ -1,11 +1,11 @@
 class UsersController < ApplicationController
-  before_action :logged_in_user, only: %i[edit update]
+  before_action :logged_in_user, only: %i[index edit update destroy]
   before_action :correct_user, only: %i[edit update]
   before_action :admin_user, only: :destroy
 
 
   def index
-    @pagy,  @users = pagy(:offset, User.all)
+    @pagy,  @users = pagy(:offset, User.where(activated: true).all)
   end
 
 
@@ -22,7 +22,7 @@ class UsersController < ApplicationController
   def create
     @user = User.new user_params
     if @user.save
-      UserMailer.account_activation(@user).deliver_now
+      @user.send_activation_email
       flash[:info]="请确认邮箱"
       redirect_to @user
     else
@@ -33,6 +33,13 @@ class UsersController < ApplicationController
 
   def show
     @user = User.find(params[:id])
+
+    if !@user.activated
+      flash[:warning] = "当前用户未激活"
+      redirect_to root_path
+    end
+
+    @pagy, @microposts = pagy(:offset, @user.microposts)
   end
 
 
@@ -63,13 +70,6 @@ class UsersController < ApplicationController
       params.expect(user: %w[name email password password_confirmation])
     end
 
-
-    def logged_in_user
-      unless logged_in?
-        flash[:danger]="请先登录"
-        redirect_to login_url
-      end
-    end
 
 
     def correct_user

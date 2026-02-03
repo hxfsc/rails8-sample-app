@@ -1,4 +1,5 @@
 class User < ApplicationRecord
+  has_many :microposts, dependent: :destroy
   attr_accessor :remember_token, :activation_token
 
   before_save :downcase_email
@@ -12,6 +13,10 @@ class User < ApplicationRecord
 
   has_secure_password
 
+
+  def feed
+    Micropost.where("user_id = ?", id)
+  end
 
   def remember
     self.remember_token = User.new_token
@@ -27,14 +32,20 @@ class User < ApplicationRecord
     update_attribute(:remember_digest, nil)
   end
 
+  def activate
+    update(activated: true, activated_at: Time.zone.now)
+  end
 
+  def send_activation_email
+    UserMailer.account_activation(self).deliver_now
+  end
 
 def authenticated?(attribute, token)
   digest = send("#{attribute}_digest")
-  Rails.logger.debug "Token: #{token.inspect}"
-  Rails.logger.debug "Digest: #{digest.inspect}"
-  Rails.logger.debug "Digest compete: #{BCrypt::Password.new(digest)}"
-  Rails.logger.debug "isPassword: #{BCrypt::Password.new(digest).is_password?(token)}"
+  # Rails.logger.debug "Token: #{token.inspect}"
+  # Rails.logger.debug "Digest: #{digest.inspect}"
+  # Rails.logger.debug "Digest compete: #{BCrypt::Password.new(digest)}"
+  # Rails.logger.debug "isPassword: #{BCrypt::Password.new(digest).is_password?(token)}"
   return false if digest.nil?
   BCrypt::Password.new(digest).is_password?(token)
 end
@@ -59,8 +70,7 @@ end
     def create_activation_digest
       self.activation_token = User.new_token
       self.activation_digest = User.digest(activation_token)
-
-      Rails.logger.debug "Create-Token: #{activation_token}"
-      Rails.logger.debug "Create-digest: #{activation_digest}"
+      # Rails.logger.debug "Create-Token: #{activation_token}"
+      # Rails.logger.debug "Create-digest: #{activation_digest}"
     end
 end

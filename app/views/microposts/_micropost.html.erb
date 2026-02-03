@@ -1,0 +1,17 @@
+<div>
+  <div>
+    <%= link_to gravatar_for(micropost.user, size: 50), micropost.user %>
+    <span><%= link_to micropost.user.name, micropost.user %></span>
+  </div>
+
+  <div>
+    <div>
+      <%= micropost.content %>
+    </div>
+    <div>
+      发布于
+      <%= time_ago_in_words(micropost.created_at) %>
+      前
+    </div>
+  </div>
+</div>

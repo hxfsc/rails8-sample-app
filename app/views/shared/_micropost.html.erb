@@ -1,0 +1,10 @@
+<div class="mt-2">
+  <%= form_with model:@micropost do | f | %>
+    <div class="mb-2">
+      <%= f.textarea :content, rows: 10, class: "form-control", placeholder: "请输入你的说说" %>
+    </div>
+    <div>
+      <%= f.submit "发布", class: "btn btn-primary" %>
+    </div>
+  <% end %>
+</div>

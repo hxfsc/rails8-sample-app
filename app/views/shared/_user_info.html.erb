@@ -1,0 +1,17 @@
+<div class="d-flex gap-2">
+  <div>
+    <%= gravatar_for(current_user, size: 120) %>
+  </div>
+
+  <div>
+    <div>
+      <%= current_user.name %>
+      <%= link_to "设置", edit_user_path(current_user) %>
+    </div>
+
+    <div>
+      <%= current_user.microposts.count %>
+      说说
+    </div>
+  </div>
+</div>

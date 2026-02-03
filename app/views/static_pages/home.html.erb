@@ -1,7 +1,25 @@
 <% provide :title, "Home" %>
-<h1>Sample App</h1>
-<p>
-  This is the home page for the
-  <a href="http://www.railstutorial.org/">Ruby on Rails Tutorial</a>
-  sample application.
-</p>
+
+<div class="container">
+
+  <div class="row">
+    <div class="col-md-4">
+      <% if logged_in? %>
+        <%= render "shared/user_info" %>
+
+        <%= render "shared/micropost" %>
+
+      <% else %>
+        <h3>Welcome Simaple App</h3>
+      <% end %>
+    </div>
+
+    <% if @feed_items %>
+      <div class="col-md-8">
+        <%= render @feed_items %>
+
+        <%== @pagy.series_nav(:bootstrap) %>
+      </div>
+    <% end %>
+  </div>
+</div>

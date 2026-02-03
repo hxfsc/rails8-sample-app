@@ -1,5 +1,21 @@
 <% provide(:title, @user.name) %>
 <div class="container">
-  <%= gravatar_for @user %>
-  <%= @user.name %>
+
+  <div class="row">
+    <div class="col-md-4">
+      <%= gravatar_for @user %>
+      <%= @user.name %>
+    </div>
+
+    <div class="col-md-8">
+      <div>
+        发表说说(<%= @user.microposts.count %>)
+      </div>
+      <div>
+        <%= render @microposts %>
+      </div>
+
+      <%== @pagy.series_nav(:bootstrap) %>
+    </div>
+  </div>
 </div>
