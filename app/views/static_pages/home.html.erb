@@ -6,6 +6,9 @@
     <div class="col-md-4">
       <% if logged_in? %>
         <%= render "shared/user_info" %>
+        <div>
+          <%= render "shared/stat" %>
+        </div>
 
         <%= render "shared/micropost" %>
 

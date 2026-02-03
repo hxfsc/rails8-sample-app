@@ -7,7 +7,12 @@ Rails.application.routes.draw do
   get "/home", to: "static_pages#home"
   get "/help", to: "static_pages#help"
   get "/about", to: "static_pages#about"
-  resources :users
+  resources :users do
+    member do
+      get :following
+      get :followers
+    end
+  end
   root "static_pages#home"
   resources :account_activations, only: [ :edit ]
   resources :microposts, only: %i[create destroy]
