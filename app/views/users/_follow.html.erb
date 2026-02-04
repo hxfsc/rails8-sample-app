@@ -1,0 +1,7 @@
+<%= form_with(model: current_user.active_relationships.build) do |f| %>
+  <div>
+    <%= f.hidden_field :followed_id, value: @user.id %>
+  </div>
+
+  <%= f.submit "收听", class: "btn btn-primary w-100 mb-2" %>
+<% end %>

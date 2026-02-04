@@ -4,6 +4,21 @@ class UsersController < ApplicationController
   before_action :admin_user, only: :destroy
 
 
+
+  def following
+    @title = "收听"
+    @user = User.find(params[:id])
+    @pagy, @users = pagy(@user.following)
+    render "show_follow"
+  end
+
+  def followers
+    @title = "正在听"
+    @user = User.find(params[:id])
+    @pagy, @users = pagy(@user.followers)
+    render "show_follow"
+  end
+
   def index
     @pagy,  @users = pagy(:offset, User.where(activated: true).all)
   end
@@ -33,7 +48,6 @@ class UsersController < ApplicationController
 
   def show
     @user = User.find(params[:id])
-
     if !@user.activated
       flash[:warning] = "当前用户未激活"
       redirect_to root_path

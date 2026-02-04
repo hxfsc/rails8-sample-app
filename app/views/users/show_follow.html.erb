@@ -1,0 +1,33 @@
+<%= provide(:title, @title) %>
+<div class="container">
+  <div class="row">
+    <div class="col-md-4">
+      <div>
+        <%= gravatar_for @user %>
+        <%= @user.name %>
+      </div>
+
+      <div>
+        <%= render "shared/stat" %>
+      </div>
+
+      <% if @users.any? %>
+        <div class="d-flex gap-2 w-100 flex-wrap">
+          <% @user.following.each do |user| %>
+            <%= link_to gravatar_for(user, size: 30), user %>
+          <% end %>
+        </div>
+      <% end %>
+    </div>
+    <div class="col-md-8">
+      <h4><%= @title %></h4>
+      <div>
+        <%= render @users %>
+      </div>
+
+      <div>
+        <%== @pagy.series_nav(:bootstrap) %>
+      </div>
+    </div>
+  </div>
+</div>
