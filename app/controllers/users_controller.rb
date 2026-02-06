@@ -8,6 +8,7 @@ class UsersController < ApplicationController
   def following
     @title = "收听"
     @user = User.find(params[:id])
+    @users_short = @user.following
     @pagy, @users = pagy(@user.following)
     render "show_follow"
   end
@@ -15,6 +16,7 @@ class UsersController < ApplicationController
   def followers
     @title = "正在听"
     @user = User.find(params[:id])
+    @users_short = @user.followers
     @pagy, @users = pagy(@user.followers)
     render "show_follow"
   end

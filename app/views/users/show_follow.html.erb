@@ -11,9 +11,9 @@
         <%= render "shared/stat" %>
       </div>
 
-      <% if @users.any? %>
+      <% if @users_short.any? %>
         <div class="d-flex gap-2 w-100 flex-wrap">
-          <% @user.following.each do |user| %>
+          <% @users_short.each do |user| %>
             <%= link_to gravatar_for(user, size: 30), user %>
           <% end %>
         </div>
